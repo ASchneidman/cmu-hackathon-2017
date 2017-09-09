@@ -8,7 +8,7 @@ from selenium.webdriver.common.keys import Keys
 
 
 def getReplies(tweetLink):
-    chromedriver_path = os.environ.get('CHROMEDRIVER', './chromedriver')
+    chromedriver_path = "C:\\Users\\matia\\Documents\\GitHub\\cmu-hackathon-2017\\chromedriver.exe"#os.environ.get('CHROMEDRIVER', './chromedriver')
     driver = webdriver.Chrome(chromedriver_path)
     driver.get(tweetLink)
 
@@ -19,9 +19,8 @@ def getReplies(tweetLink):
         driver.quit()
         return []
     
-    for x in range(30):
+    while not driver.find_element_by_class_name("stream-end").is_displayed():
         element.send_keys(Keys.CONTROL, Keys.END)
-        time.sleep(1)
         
     post_elems = driver.find_elements_by_class_name("tweet-text")
 
