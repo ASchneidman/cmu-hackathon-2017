@@ -27,15 +27,10 @@ def index():
 @app.route('/get_tweet/<tid>')
 def get_tweet(tid):
     emotion_counter = Counter()
-<<<<<<< HEAD
-    replies = ['Churches in Texas should be entitled to reimbursement from FEMA Relief Funds for helping victims of Hurricane Harvey (just like others).']
-    batch_count = 100
-=======
     print('Getting replies for tid {}'.format(tid))
     replies = getReplies('https://twitter.com/statuses/{}'.format(tid))
     print(replies)
     batch_count = 30
->>>>>>> 7cdecd0e4f529ea09fe9d035de86b8eed2cb5950
     for reply_batch in range(0, len(replies), batch_count):
         print('Starting batch')
         tweet_text = ''
