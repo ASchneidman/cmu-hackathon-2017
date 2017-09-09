@@ -18,18 +18,24 @@ auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
 
+def getText(tweet):
+    return tweet.text.translate(non_bmp_map)
 
-
-def getReplies(tweetId):
+def getReplies(tweetId, number=5000):
     status = api.get_status(tweetId)
     username = status.author.screen_name
 
     print(status.text.translate(non_bmp_map))
 
-    for result in api.search("@"+username, sinceId=tweetId, count=500):
+    replies = []
+    
+    for result in api.search("@"+username, since_id=tweetId, count=number):
         if(result.in_reply_to_status_id == tweetId):
-            print(result.text.translate(non_bmp_map))
+            replies.append(result)
+    return replies
 
-tweetId = 906318327508848640
-getReplies(tweetId)
-
+#tweetId = 906318327508848640 #random guy
+tweetId = 905958330815926276 #trump
+replies=getReplies(tweetId)
+for reply in replies:
+    print(getText(reply))
