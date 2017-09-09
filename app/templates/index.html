@@ -1,6 +1,7 @@
 <html>
 
 <head>
+  <title>Catch Some Feelings</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
   <style>
@@ -37,6 +38,7 @@
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
     }
+
 
   </style>
 
@@ -119,22 +121,27 @@
       $('.modal-trigger').leanModal();
       $("#tweet").submit(function(event)
       {
+        //Display loading
         document.getElementById('error_text').style.display = 'none';
         document.getElementById('canvas').style.display = 'none';
         document.getElementById('loader').style.display = 'block';
-        var raw_link = $("#link").val()
-        /*if(!(raw_link.lastIndexOf("https://twitter.com/",0) === 0)) {
 
-        }*/
+        //Get user input
+        var raw_link = $("#link").val()
         var li = raw_link.split('/');
         var full = li[li.length - 1];
+
+        //Run python code
         $.get("/get_tweet/" + full, function(resp) {
+            //Validate tweet
             if (resp === 'Invalid tweet.') {
               document.getElementById('loader').style.display = 'none';
               $("#error_text").text("Please enter a valid tweet.");
               document.getElementById('error_text').style.display = 'block';
               return false;
             }
+
+            //Set up data
             emote_list = resp;
             var color = Chart.helpers.color;
             var emote_names = [];
@@ -143,6 +150,8 @@
               emote_names[i] = emote_list[i][0];
               emote_values[i] = emote_list[i][1];
             }
+
+            //Configure chart
             var config = {
               type: 'radar',
               data: {
@@ -169,6 +178,8 @@
                 }
               }
             };
+
+            //Clear loading and display chart
             document.getElementById('loader').style.display = 'none';
             document.getElementById('canvas').style.display = 'block';
             window.myRadar = new Chart(document.getElementById("canvas"), config);
