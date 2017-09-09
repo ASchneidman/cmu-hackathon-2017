@@ -16,6 +16,7 @@ def getReplies(tweetLink):
         element = driver.find_element_by_class_name('permalink-tweet')
     except selenium.common.exceptions.NoSuchElementException:
         print("Invalid tweet.")
+        driver.quit()
         return []
 
     #lastHeight = element.pagesourse
