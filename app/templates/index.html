@@ -84,7 +84,8 @@
           </form>
         </div>
       </div>
-      <a href="#!">About</a>
+      <a class="waves-effect waves-light btn modal-trigger" href="#modal1" >About</a>
+      <a class="waves-effect waves-light btn modal-trigger" href="#modal2" >Creators</a>
     </center>
 
     <center>
@@ -101,6 +102,27 @@
 
     <div class="section"></div>
     <div class="section"></div>
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>About</h4>
+        <p>Catch the Vibe is a nonprofit, open source project developed as part of the HackCMU 2017 hackathon. It locates all the replies to a particular tweet, and analyzes the replies based on a range of several emotions.</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+      </div>
+    </div>
+    <!-- Modal Structure -->
+    <div id="modal2" class="modal">
+      <div class="modal-content">
+        <h4>Creators</h4>
+        <p>Created by Matias, Sam, Alex, and Winston</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+      </div>
+    </div>
+  </div>
   </main>
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
@@ -109,9 +131,10 @@
   <script type="text/javascript" src="/static/utils.js"></script>
 
   <script>
-
     var emote_list = [[]];
-    $(document).ready(function(){$("#tweet").submit(function(event)
+    $(document).ready(function(){
+      $('.modal-trigger').leanModal();
+      $("#tweet").submit(function(event)
       {
         //Display loading
         document.getElementById('error_text').style.display = 'none';
