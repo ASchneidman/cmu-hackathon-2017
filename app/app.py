@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, send_from_directory
 from collections import Counter
 import requests
 
@@ -40,6 +40,10 @@ def get_tweet(tid):
             emotion_counter.update(group['emotions'])
 
     return jsonify(emotion_counter.most_common(10))
+
+@app.route('/static/<path:path>')
+def send_js(path):
+    return send_from_directory('static', path)
 
 def main():
     app.run(host='0.0.0.0')
