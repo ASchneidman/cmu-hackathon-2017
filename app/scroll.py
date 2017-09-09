@@ -15,7 +15,7 @@ def getReplies(tweetLink):
     element = driver.find_element_by_class_name('permalink-tweet')
 
     #lastHeight = element.pagesourse
-    for x in range(50):
+    for x in range(30):
         element.send_keys(Keys.CONTROL, Keys.END)
         time.sleep(1)
         #if(lastHeight==element.scrollHeight):
