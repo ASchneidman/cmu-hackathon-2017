@@ -17,15 +17,11 @@ def getReplies(tweetLink):
     except selenium.common.exceptions.NoSuchElementException:
         print("Invalid tweet.")
         return []
-
-    #lastHeight = element.pagesourse
+    
     for x in range(30):
         element.send_keys(Keys.CONTROL, Keys.END)
         time.sleep(1)
-        #if(lastHeight==element.scrollHeight):
-        #    break
-        #lastHeight=element.scrollHeight
-
+        
     post_elems = driver.find_elements_by_class_name("tweet-text")
 
     text_elems = list(map(lambda post: post.text, post_elems))
