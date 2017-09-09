@@ -17,10 +17,10 @@ def getReplies(tweetLink):
         print("Invalid tweet.")
         driver.quit()
         return []
-    
+
     while not driver.find_element_by_class_name("stream-end").is_displayed():
         element.send_keys(Keys.CONTROL, Keys.END)
-        
+
     post_elems = driver.find_elements_by_class_name("tweet-text")
 
     text_elems = list(map(lambda post: post.text, post_elems))
