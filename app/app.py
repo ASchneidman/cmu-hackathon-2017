@@ -1,5 +1,6 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, send_from_directory
 from collections import Counter
+from scroll import getReplies
 import requests
 
 app = Flask(__name__)
@@ -26,11 +27,19 @@ def index():
 @app.route('/get_tweet/<tid>')
 def get_tweet(tid):
     emotion_counter = Counter()
+<<<<<<< HEAD
     replies = ['Churches in Texas should be entitled to reimbursement from FEMA Relief Funds for helping victims of Hurricane Harvey (just like others).']
     batch_count = 100
+=======
+    print('Getting replies for tid {}'.format(tid))
+    replies = getReplies('https://twitter.com/statuses/{}'.format(tid))
+    print(replies)
+    batch_count = 30
+>>>>>>> 7cdecd0e4f529ea09fe9d035de86b8eed2cb5950
     for reply_batch in range(0, len(replies), batch_count):
+        print('Starting batch')
         tweet_text = ''
-        for reply_index in range(reply_batch, reply_batch + 100):
+        for reply_index in range(reply_batch, reply_batch + batch_count):
             if reply_index >= len(replies):
                 break
             tweet_text += replies[reply_index] + '\n'
@@ -38,6 +47,7 @@ def get_tweet(tid):
         resp = call_api(tweet_text)
         for group in resp['groups']:
             emotion_counter.update(group['emotions'])
+        print(emotion_counter)
 
     return jsonify(emotion_counter.most_common(10))
 
