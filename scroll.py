@@ -11,13 +11,13 @@ driver.get("https://twitter.com/realDonaldTrump/status/906320446882271232")
 
 element = driver.find_element_by_class_name('permalink-tweet')
 
-#element.send_keys(Keys.CONTROL , Keys.END)
+#lastHeight = element.pagesourse
 for x in range(50):
-    for y in range(3):
-        element.send_keys(Keys.SPACE)
+    element.send_keys(Keys.CONTROL , Keys.END)
     time.sleep(1)
-#driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-#driver.execute_script("window.scrollBy(0, 500);")
+    #if(lastHeight==element.scrollHeight):
+    #    break
+    #lastHeight=element.scrollHeight
 
 post_elems = driver.find_elements_by_class_name("tweet-text")
 
