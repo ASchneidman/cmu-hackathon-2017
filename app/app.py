@@ -30,7 +30,7 @@ def get_tweet(tid):
     batch_count = 100
     for reply_batch in range(0, len(replies), batch_count):
         tweet_text = ''
-        for reply_index in range(reply_batch, reply_batch + 100):
+        for reply_index in range(reply_batch, reply_batch + batch_count):
             if reply_index >= len(replies):
                 break
             tweet_text += replies[reply_index] + '\n'
