@@ -11,9 +11,9 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
 def getUser(user):
-    tweets = api.user_timeline(user,count=500)
+    tweets = api.user_timeline(user,count=100)
     return list(map(lambda tweet: tweet.text, tweets))
 
 def getHashtag(hashtag):
-    tweets = tweepy.Cursor(api.search, q=hastag).items(500)
+    tweets = tweepy.Cursor(api.search, q=hastag).items(100)
     return list(map(lambda tweet: tweet.text, tweets))
