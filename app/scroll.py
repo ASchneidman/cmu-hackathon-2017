@@ -18,11 +18,11 @@ def getReplies(tweetLink):
         print("Invalid tweet.")
         driver.quit()
         return []
-    
+
     for x in range(30):
         element.send_keys(Keys.CONTROL, Keys.END)
         time.sleep(1)
-        
+
     post_elems = driver.find_elements_by_class_name("tweet-text")
 
     text_elems = list(map(lambda post: post.text, post_elems))
