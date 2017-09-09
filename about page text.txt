@@ -1,0 +1,1 @@
+Catch the Vibe is a nonprofit, open source project developed as part of the HackCMU 2017 hackathon. It locates all the replies to a particular tweet, and analyzes the replies based on a range of several emotions.
