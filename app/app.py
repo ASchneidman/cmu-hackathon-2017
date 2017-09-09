@@ -26,7 +26,7 @@ def index():
 @app.route('/get_tweet/<tid>')
 def get_tweet(tid):
     emotion_counter = Counter()
-    replies = [] # TODO
+    replies = ['Churches in Texas should be entitled to reimbursement from FEMA Relief Funds for helping victims of Hurricane Harvey (just like others).']
     batch_count = 100
     for reply_batch in range(0, len(replies), batch_count):
         tweet_text = ''
@@ -40,6 +40,10 @@ def get_tweet(tid):
             emotion_counter.update(group['emotions'])
 
     return jsonify(emotion_counter.most_common(10))
+
+@app.route('/static/<path:path>')
+def send_js(path):
+    return send_from_directory('static', path)
 
 def main():
     app.run(host='0.0.0.0')

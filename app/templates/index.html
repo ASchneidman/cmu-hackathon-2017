@@ -18,6 +18,26 @@
       background: #fff;
     }
 
+    canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+
+    .loader {
+        border: 16px solid #f3f3f3; /* Light grey */
+        border-top: 16px solid #3498db; /* Blue */
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
   </style>
 
 </head>
@@ -59,23 +79,75 @@
       <a href="#!">About</a>
     </center>
 
+    <center>
+      <br /><br />
+      <div style="display: none;" class="loader" id="loader"></div>
+      <div style="width:40%">
+          <canvas style="display: none;"id="canvas"></canvas>
+        </div>
+    </center>
+
     <div class="section"></div>
     <div class="section"></div>
   </main>
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+  <script type="text/javascript" src="/static/utils.js"></script>
   <script>
+
+    var emote_list = [[]];
     $(document).ready(function(){$("#tweet").submit(function(event)
       {
+        document.getElementById('canvas').style.display = 'none';
+        document.getElementById('loader').style.display = 'block';
         var li = $("#link").val().split('/');
         var full = li[li.length - 1];
         $.get("/get_tweet/" + full, function(resp) {
-            alert(resp);
+            emote_list = resp;
+            var color = Chart.helpers.color;
+            var emote_names = [];
+            var emote_values = [];
+            for (var i = 0; i < emote_list.length; ++i) {
+              emote_names[i] = emote_list[i][0];
+              emote_values[i] = emote_list[i][1];
+            }
+            var config = {
+              type: 'radar',
+              data: {
+                labels: emote_names,
+                datasets: [{
+                  label: "Reactions to the tweet",
+                  backgroundColor: color(window.chartColors.red).alpha(0.2).rgbString(),
+                  borderColor: window.chartColors.red,
+                  pointBackgroundColor: window.chartColors.red,
+                  data: [
+                    emote_values
+                  ]
+                }]
+              },
+              options: {
+                title: {
+                  display: true,
+                  text: 'Reactions'
+                },
+                scale: {
+                  ticks: {
+                    beginAtZero: true
+                  }
+                }
+              }
+            };
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('canvas').style.display = 'block';
+            window.myRadar = new Chart(document.getElementById("canvas"), config);
         });
         event.preventDefault();
       }
     );});
+
+
   </script>
 </body>
 
