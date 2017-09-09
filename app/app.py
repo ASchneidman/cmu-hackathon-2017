@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 from collections import Counter
 import requests
 
@@ -39,7 +39,7 @@ def get_tweet(tid):
         for group in resp['groups']:
             emotion_counter.update(group['emotions'])
 
-    return emotion_counter.most_common(10)
+    return jsonify(emotion_counter.most_common(10))
 
 def main():
     app.run(host='0.0.0.0')
