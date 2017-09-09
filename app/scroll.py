@@ -7,7 +7,7 @@ from selenium.webdriver.common.keys import Keys
 
 
 def getReplies(tweetLink):
-    chromedriver_path = "C:\\Users\\matia\\Documents\\GitHub\\cmu-hackathon-2017\\chromedriver.exe"#os.environ.get('CHROMEDRIVER', './chromedriver')
+    chromedriver_path = os.environ.get('CHROMEDRIVER', './chromedriver')
     driver = webdriver.Chrome(chromedriver_path)
     driver.get(tweetLink)
 
