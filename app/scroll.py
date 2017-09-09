@@ -1,4 +1,3 @@
-import time
 import os
 
 import selenium
@@ -19,9 +18,8 @@ def getReplies(tweetLink):
         driver.quit()
         return []
 
-    for x in range(30):
+    while not driver.find_element_by_class_name("stream-end").is_displayed():
         element.send_keys(Keys.CONTROL, Keys.END)
-        time.sleep(1)
 
     post_elems = driver.find_elements_by_class_name("tweet-text")
 
