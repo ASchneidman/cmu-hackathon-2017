@@ -30,6 +30,8 @@ def get_tweet(tid):
     print('Getting replies for tid {}'.format(tid))
     replies = getReplies('https://twitter.com/statuses/{}'.format(tid))
     print(replies)
+    if not replies:
+        return "Invalid tweet."
     batch_count = 30
     for reply_batch in range(0, len(replies), batch_count):
         print('Starting batch')
