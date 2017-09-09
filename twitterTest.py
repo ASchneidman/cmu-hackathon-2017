@@ -18,9 +18,18 @@ auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
 
-tweetId = 906318327508848640
 
-print(api.statuses_lookup([tweetId])[0].text.translate(non_bmp_map))
-for result in api.search("to:@DavidLawTennis", sinceId=tweetId, count=500):
-    if(result.in_reply_to_status_id == tweetId):
-        print(result.text.translate(non_bmp_map))
+
+def getReplies(tweetId):
+    status = api.get_status(tweetId)
+    username = status.author.screen_name
+
+    print(status.text.translate(non_bmp_map))
+
+    for result in api.search("@"+username, sinceId=tweetId, count=500):
+        if(result.in_reply_to_status_id == tweetId):
+            print(result.text.translate(non_bmp_map))
+
+tweetId = 906318327508848640
+getReplies(tweetId)
+
