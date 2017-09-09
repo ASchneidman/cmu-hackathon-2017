@@ -102,7 +102,11 @@
       {
         document.getElementById('canvas').style.display = 'none';
         document.getElementById('loader').style.display = 'block';
-        var li = $("#link").val().split('/');
+        var raw_link = $("#link").val()
+        if(!(raw_link.lastIndexOf("https://twitter.com/",0) === 0)) {
+          
+        }
+        var li = raw_link.split('/');
         var full = li[li.length - 1];
         $.get("/get_tweet/" + full, function(resp) {
             emote_list = resp;
