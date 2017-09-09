@@ -1,8 +1,8 @@
 from flask import Flask, render_template, jsonify, send_from_directory
 from collections import Counter
 from scroll import getReplies
-from twitterAPI import getUser
-from twitterAPI import getHashtag
+#from twitterAPI import getUser
+#from twitterAPI import getHashtag
 import requests
 
 app = Flask(__name__)
@@ -28,14 +28,14 @@ def index():
 
 @app.route('/get_tweet/<tid>')
 def get_tweet(tid):
-    if(tid[0]=='#'):
-        replies=getHashtag(tid)
-    else if(tid[0]=='@'):
-        replies=getUser(tid)
-    else:
-        print('Getting replies for tid {}'.format(tid))
-        replies = getReplies('https://twitter.com/statuses/{}'.format(tid))
-        print(replies)
+#    if(tid[0]=='#'):
+#        replies=getHashtag(tid)
+#    else if(tid[0]=='@'):
+#        replies=getUser(tid)
+#    else:
+    print('Getting replies for tid {}'.format(tid))
+    replies = getReplies('https://twitter.com/statuses/{}'.format(tid))
+    print(replies)
 
     emotion_counter = Counter()
     if not replies:
